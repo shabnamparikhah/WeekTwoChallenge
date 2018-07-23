@@ -23,28 +23,37 @@ public class WeekTwoChallengeClass {
         int count=0;
 
         Message("startMessage");
-      // Message("changeState");
-        //code = myScan.next();
-            switch (code) {
-                case "MD":
-                    description = 6.00;
-                    break;
-                case "VA":
-                    description = 5.30;
-                    break;
-                case "DC":
-                    description = 5.75;
-                    break;
-                default:
-                    description = 5.0;
-                    break;
-            }
 
         Random rand = new Random();
-        taxCode = 1 + rand.nextInt(2);
-
+        taxCode = rand.nextInt(4);
+        double taxRate = 0.0;
+//        switch (code) {
+//                case "MD":
+//                    description = 6.00;
+//                    break;
+//                case "VA":
+//                    description = 5.30;
+//                    break;
+//                case "DC":
+//                    description = 5.75;
+//                    break;
+//                default:
+//                    description = 5.0;
+//                    break;
+//            }
         try {
-
+            if (taxCode == 1) {
+                taxRate = 0.06;
+            }
+            else if (taxCode == 2) {
+                taxRate = 0.053;
+            }
+            else if (taxCode == 3) {
+                taxRate = 0.0575;
+            }
+            else {
+                taxRate = 0.05;
+            }
 
             while (!name.equals("quit")) {
                 Message("selectFood");
@@ -80,12 +89,12 @@ public class WeekTwoChallengeClass {
             Message("output");
 
             System.out.println(fullname + "\t\t");
-            System.out.println("Sub-Total : " + "$" + subNew);
-            System.out.println("Tax Rate : " + description + "%" + " " + "(Tax code =" + taxCode +")");
-            System.out.println("Sales Tax : " + "$" + result * (description / 100));
+            System.out.println("Sub-Total : " + "$" + String.format("%.02f", subNew));
+            System.out.println("Tax Rate : " + String.format("%.02f", taxRate)+" " + "(Tax code =" + taxCode +")");
+            System.out.println("Sales Tax : " + "$" + String.format("%.02f", result * (taxRate / 100)));
             System.out.println("================================================");
-            double MainTotal = (subNew + (result * (description / 100)));
-            System.out.println("Total :" + "$" + MainTotal);
+            double MainTotal = (subNew + (result * (taxRate / 100)));
+            System.out.println("Total :" + "$" +  String.format("%.02f",MainTotal));
 
         } catch (Exception ex) {
             System.out.println("The Input Value Is Not Valid!");
